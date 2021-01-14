@@ -1,0 +1,41 @@
+{
+    "name": "john/authenupms",
+    "description": "自定义Auth登录及权限分配",
+    "version": "1.0.0-dev",
+    "type": "library",
+    "keywords": [
+        "john",
+        "authenupms"
+    ],
+    "homepage": "",
+    "time": "2021-01-14",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "john",
+            "email": "zbm4333@gmail.com",
+            "homepage": "",
+            "role": "developer"
+        }
+    ],
+    "support": {
+        "email": "项目支持 email 地址",
+        "issues": "跟踪问题的 URL 地址",
+        "forum": "论坛地址",
+        "wiki": "Wiki 地址",
+        "irc": "IRC 聊天频道地址，类似于 irc://server/channel",
+        "source": "网址浏览或下载源"
+    },
+    "autoload": {
+        "psr-4": {
+            "John\\Authenupms\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "John\\Authenupms\\Tests\\": "tests"
+        }
+    },
+    "minimum-stability": "dev",
+    "require": {}
+}
