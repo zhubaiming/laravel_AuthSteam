@@ -1,5 +1,5 @@
 {
-    "name": "john/authenupms",
+    "name": "JohnZ/LevelAuth",
     "description": "自定义Auth登录及权限分配",
     "version": "1.0.0-dev",
     "type": "library",
