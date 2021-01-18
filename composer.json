@@ -1,18 +1,18 @@
 {
-    "name": "john-z/authsteam",
+    "name": "baiming/authsteam",
     "description": "自定义Auth登录及权限分配",
     "version": "1.0.0-dev",
     "type": "library",
     "keywords": [
-        "john",
-        "authenupms"
+        "baiming",
+        "authsteam"
     ],
     "homepage": "",
     "time": "2021-01-14",
     "license": "MIT",
     "authors": [
         {
-            "name": "john",
+            "name": "baiming",
             "email": "zbm4333@gmail.com",
             "homepage": "http://www.poolbear.cn",
             "role": "developer"
@@ -30,22 +30,22 @@
     },
     "autoload": {
         "psr-4": {
-            "John\\Authenupms\\": "src/"
+            "Baiming\\Authsteam\\": "src/"
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "John\\Authenupms\\Tests\\": "tests"
+            "Baiming\\Authsteam\\Tests\\": "tests"
         }
     },
     "minimum-stability": "dev",
     "extra": {
         "laravel": {
             "providers": [
-                "John\\Authenupms\\ServiceProvider"
+                "Baiming\\Authsteam\\AuthServiceProvider"
             ],
             "aliases": {
-                "Authenupms": "John\\Authenupms\\Facade\\Authenupms"
+                "Authsteam": "Baiming\\Authsteam\\Facade\\Authenupms"
             }
         }
     }

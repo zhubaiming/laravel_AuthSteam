@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Console\Commands;
+namespace Baiming\Authsteam\Console;
 
 use Illuminate\Console\Command;
-use Illuminate\Filesystem\Filesystem;
 
-class InstallAuthenupms extends Command
+class InstallPackage extends Command
 {
     protected $files;
 
@@ -38,7 +37,7 @@ class InstallAuthenupms extends Command
      *
      * @var string
      */
-    protected $signature = 'authenupms:install';
+    protected $signature = 'authsteam:install';
 
     /**
      * 命令描述
@@ -52,11 +51,9 @@ class InstallAuthenupms extends Command
      *
      * @return void
      */
-    public function __construct(Filesystem $files)
+    public function __construct()
     {
         parent::__construct();
-
-        $this->files = $files;
     }
 
     /**
@@ -74,7 +71,7 @@ class InstallAuthenupms extends Command
          * 黄色：comment()
          * 靛蓝色：question()
          */
-        $this->info();
+        $this->info('开始安装 AuthSteam 所需文件');
         // 在应用代码中调用 Artisan 命令
         // Artisan::call();
         // $this->callSilent();该方法会抑制所有输出
@@ -82,11 +79,11 @@ class InstallAuthenupms extends Command
             'name' => 'EloquentUserProvider'
         ]);
 
-        $stub = $this->files->get(__DIR__ . '/stub/EloquentUserProvider.php.stub');
+        $stub = $this->files->get(__DIR__ . '/stub/Providers/EloquentUserProvider.php.stub');
 
         $this->files->put(app_path('Providers/EloquentUserProvider.php'), $stub);
 
-        $stub = $this->files->get(__DIR__ . '/stub/User.php.stub');
+        $stub = $this->files->get(__DIR__ . '/stub/Models/User.php.stub');
 
         $this->files->put(app_path('Models/User.php'), $stub);
 
