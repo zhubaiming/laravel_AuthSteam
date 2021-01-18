@@ -1,5 +1,5 @@
 {
-    "name": "john-z/authsteam",
+    "name": "JohnZ/LevelAuth",
     "description": "自定义Auth登录及权限分配",
     "version": "1.0.0-dev",
     "type": "library",
@@ -14,17 +14,19 @@
         {
             "name": "john",
             "email": "zbm4333@gmail.com",
-            "homepage": "",
+            "homepage": "http://www.poolbear.cn",
             "role": "developer"
         }
     ],
     "support": {
-        "email": "项目支持 email 地址",
-        "issues": "跟踪问题的 URL 地址",
-        "forum": "论坛地址",
-        "wiki": "Wiki 地址",
-        "irc": "IRC 聊天频道地址，类似于 irc://server/channel",
-        "source": "网址浏览或下载源"
+        "email": "zbm4333@gmail.com",
+        "issues": "http://www.poolbear.cn",
+        "forum": "http://www.poolbear.cn",
+        "wiki": "http://www.poolbear.cn",
+        "irc": "irc://server/channel",
+        "source": "https://github.com/zhubaiming/laravel_AuthSteam/tree/master"
+    },
+    "require": {
     },
     "autoload": {
         "psr-4": {
@@ -37,5 +39,14 @@
         }
     },
     "minimum-stability": "dev",
-    "require": {}
+    "extra": {
+        "laravel": {
+            "providers": [
+                "John\\Authenupms\\ServiceProvider"
+            ],
+            "aliases": {
+                "Authenupms": "John\\Authenupms\\Facade\\Authenupms"
+            }
+        }
+    }
 }
