@@ -27,18 +27,7 @@ class AuthServiceProvider extends ServiceProvider
     // 所有应注册的容器单例
     public $singletons = [];
 
-    // 自定义参数
-    private $files;
-
-    public function __construct($app, Filesystem $files)
-    {
-        parent::__construct($app);
-
-        $this->files = $files;
-    }
-
-    public
-    function register()
+    public function register()
     {
         /**
          * 在 register 方法中，唯一要做的事情就是绑定服务到"服务容器"，不要做其他事情
@@ -60,7 +49,7 @@ class AuthServiceProvider extends ServiceProvider
          */
     }
 
-    public function boot()
+    public function boot(Filesystem $files)
     {
         /**
          * 在 boot 方法中对依赖进行类型提示，"服务容器"会自动注入所需要的依赖
@@ -78,7 +67,7 @@ class AuthServiceProvider extends ServiceProvider
 //        }
         Log::info('我来了');
 
-        if ($this->files->missing(app_path('Providers/EloquentUserProvider.php'))) { // 检测 EloquentUserProvider 文件是否在指定路径缺失
+        if ($files->missing(app_path('Providers/EloquentUserProvider.php'))) { // 检测 EloquentUserProvider 文件是否在指定路径缺失
             // 执行 Artisan 命令
             Artisan::call('make:provider', [ // 创建 EloquentUserProvider 文件
                 'name' => 'EloquentUserProvider'
