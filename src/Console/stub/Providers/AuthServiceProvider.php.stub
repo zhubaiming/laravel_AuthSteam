@@ -1,0 +1,36 @@
+<?php
+
+namespace App\Providers;
+
+use Illuminate\Foundation\Support\Providers\AuthServiceProvider as ServiceProvider;
+use Illuminate\Support\Facades\Auth;
+
+class AuthServiceProvider extends ServiceProvider
+{
+    /**
+     * The policy mappings for the application.
+     *
+     * @var array
+     */
+    protected $policies = [
+        // 'App\Models\Model' => 'App\Policies\ModelPolicy',
+    ];
+
+    /**
+     * Register any authentication / authorization services.
+     *
+     * @return void
+     */
+    public function boot()
+    {
+        $this->registerPolicies();
+
+        /**
+         * 将 User Providers 换成我们自己的 EloquentUserProvider
+         * 需要修改 config/auth.php 下 providers=>user=>driver 的值为下面定义的名称
+         */
+        Auth::provider('eloquent', function ($app, $config) {
+            return new EloquentUserProvider($this->app['hash'], $config['model']);
+        });
+    }
+}
