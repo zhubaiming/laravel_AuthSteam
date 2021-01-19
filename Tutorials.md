@@ -26,3 +26,24 @@
 文件。
 
 服务提供者继承自 ```Illuminate\Support\ServiceProvider``` 类并包含两个方法： ```register``` 和 ```boot```。
+
+## 命令
+
+要通过 Laravel 注册扩展包的 Artisan 命令，可以使用 ```commands``` 方法。该方法需要传入命令名称数组，注册号命令后，可以使用 Artisan CLI 执行它们
+
+```php
+/**
+ * Bootstrap the application services.
+ *
+ * @return void
+ */
+public function boot()
+{
+    if ($this->app->runningInConsole()) {
+        $this->commands([
+            FooCommand::class,
+            BarCommand::class,
+        ]);
+    }
+}
+```
