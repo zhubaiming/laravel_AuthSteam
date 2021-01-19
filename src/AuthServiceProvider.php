@@ -9,6 +9,7 @@
 
 namespace Baiming\Authsteam;
 
+use Illuminate\Filesystem\Filesystem;
 use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
@@ -26,7 +27,18 @@ class AuthServiceProvider extends ServiceProvider
     // 所有应注册的容器单例
     public $singletons = [];
 
-    public function register()
+    // 自定义参数
+    private $files;
+
+    public function __construct($app, Filesystem $files)
+    {
+        parent::__construct($app);
+
+        $this->files = $files;
+    }
+
+    public
+    function register()
     {
         /**
          * 在 register 方法中，唯一要做的事情就是绑定服务到"服务容器"，不要做其他事情
@@ -66,9 +78,19 @@ class AuthServiceProvider extends ServiceProvider
 //        }
         Log::info('我来了');
 
-        // 执行 Artisan 命令
-        Artisan::call('make:provider', [
-            'name' => 'EloquentUserProvider'
+        if ($this->files->missing(app_path('Providers/EloquentUserProvider.php'))) { // 检测 EloquentUserProvider 文件是否在指定路径缺失
+            // 执行 Artisan 命令
+            Artisan::call('make:provider', [ // 创建 EloquentUserProvider 文件
+                'name' => 'EloquentUserProvider'
+            ]);
+        }
+
+        // 发布资源到指定位置
+        $this->publishes([
+            __DIR__ . '/Providers/EloquentUserProvider.php' => app_path('Providers/EloquentUserProvider.php')
         ]);
+
+        // 执行 Artisan 命令
+        Artisan::call('vendor:publish');
     }
 }

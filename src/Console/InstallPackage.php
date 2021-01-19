@@ -3,6 +3,7 @@
 namespace Baiming\Authsteam\Console;
 
 use Illuminate\Console\Command;
+use Illuminate\Filesystem\Filesystem;
 
 class InstallPackage extends Command
 {
@@ -51,9 +52,11 @@ class InstallPackage extends Command
      *
      * @return void
      */
-    public function __construct()
+    public function __construct(Filesystem $files)
     {
         parent::__construct();
+
+        $this->files = $files;
     }
 
     /**
