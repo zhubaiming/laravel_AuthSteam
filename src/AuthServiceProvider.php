@@ -67,19 +67,41 @@ class AuthServiceProvider extends ServiceProvider
 //        }
         Log::info('我来了');
 
-        if ($files->missing(app_path('Providers/EloquentUserProvider.php'))) { // 检测 EloquentUserProvider 文件是否在指定路径缺失
-            // 执行 Artisan 命令
-            Artisan::call('make:provider', [ // 创建 EloquentUserProvider 文件
-                'name' => 'EloquentUserProvider'
-            ]);
+        if ($files->exists(app_path('Providers/EloquentUserProvider.php'))) { // 检测指定路径是否包含 EloquentUserProvider 文件
+            $files->copy(app_path('Providers/EloquentUserProvider.php'), app_path('Providers/EloquentUserProvider.php.old'));
         }
 
-        // 发布资源到指定位置
-        $this->publishes([
-            __DIR__ . '/Providers/EloquentUserProvider.php' => app_path('Providers/EloquentUserProvider.php')
-        ]);
+        if ($files->exists(app_path('Providers/AuthServiceProvider.php'))) { // 检测指定路径是否包含 EloquentUserProvider 文件
+            $files->copy(app_path('Providers/AuthServiceProvider.php'), app_path('Providers/AuthServiceProvider.php.old'));
+        }
+
+        if ($files->exists(app_path('Models/User.php'))) { // 检测指定路径是否包含 EloquentUserProvider 文件
+            $files->copy(app_path('Models/User.php'), app_path('Models/User.php.old'));
+        }
 
         // 执行 Artisan 命令
-        Artisan::call('vendor:publish');
+        Artisan::call('make:provider', [ // 创建 EloquentUserProvider 文件
+            'name' => 'EloquentUserProvider'
+        ]);
+
+        $stub = $files->get(__DIR__ . '/Console/stub/Providers/EloquentUserProvider.php.stub');
+
+        $files->put(app_path('Providers/EloquentUserProvider.php'), $stub);
+
+        $stub = $files->get(__DIR__ . '/Console/stub/Models/User.php.stub');
+
+        $files->put(app_path('Models/User.php'), $stub);
+
+        $stub = $files->get(__DIR__ . '/Console/stub/Providers/AuthServiceProvider.php.stub');
+
+        $files->put(app_path('Providers/AuthServiceProvider.php'), $stub);
+
+//        // 发布资源到指定位置
+//        $this->publishes([
+//            __DIR__ . '/Providers/EloquentUserProvider.php' => app_path('Providers/EloquentUserProvider.php')
+//        ]);
+//
+//        // 执行 Artisan 命令
+//        Artisan::call('vendor:publish');
     }
 }
