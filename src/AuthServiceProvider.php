@@ -9,7 +9,7 @@
 
 namespace Baiming\Authsteam;
 
-use Baiming\Authsteam\Console\InstallPackage;
+use Illuminate\Support\Facades\Artisan;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Support\ServiceProvider;
 
@@ -53,6 +53,8 @@ class AuthServiceProvider extends ServiceProvider
         /**
          * 在 boot 方法中对依赖进行类型提示，"服务容器"会自动注入所需要的依赖
          * 初始化某些路由或添加事件侦听器
+         * 该方法在所有服务提供者被注册以后才会被调用
+         * 这就是说我们可以在其中访问框架已注册的所有其它服务
          */
 
 //        if ($this->app->runningInConsole()) { // 检查应用程序是否在控制台中运行
@@ -63,5 +65,10 @@ class AuthServiceProvider extends ServiceProvider
 //            ]);
 //        }
         Log::info('我来了');
+
+        // 执行 Artisan 命令
+        Artisan::call('make:provider', [
+            'name' => 'EloquentUserProvider'
+        ]);
     }
 }
